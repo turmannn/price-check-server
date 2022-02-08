@@ -1,0 +1,3 @@
+export const jwtConstants = {
+  secret: 'secretKey', // in a production system you must protect this key using appropriate measures such as a secrets vault, environment variable, or configuration service.
+};
