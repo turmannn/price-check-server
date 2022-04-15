@@ -9,23 +9,25 @@ import { AuthService } from './auth/auth.service';
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   @Get()
   getHello(): string {
+    console.log('debug: getHello');
     return this.appService.getHello();
   }
 
   // @UseGuards(AuthGuard('local'))
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(LocalAuthGuard) // validates username and password
   @Post('auth/login')
   async login(@Request() req) {
-    console.log(req.user);
+    console.log('debug0 auth/login');
+    console.log('debug1 auth/login', req.user);
     return this.authService.login(req.user);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard) // validates jwt token
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;

@@ -6,11 +6,13 @@ import { UsersService } from '../users/users.service';
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
+    console.log('debug validateUser0: ');
     const user = await this.usersService.findOne(username);
+    console.log('debug validateUser1: ', user);
     if (user && user.password === pass) {
       const { password, ...result } = user; //looks like the destructuring here is just a fancy way of removing password from the response
       return result;
